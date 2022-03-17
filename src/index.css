@@ -1,13 +1,70 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.top-mar {
+  margin-top: 20px;
+}
+
+.border-custom {
+  border: none;
+  border-bottom: 1px solid rgba(190, 186, 190, 0.952);
+  border-radius: 0;
+  margin-bottom: 20px;
+}
+
+.border-custom:focus {
+  border-color: rgba(181, 4, 216, 0.952);
+}
+.navbar-custom {
+  background-color: rgba(181, 4, 216, 0.952);
+  color: white;
+}
+
+.button-clr {
+  background-color: rgba(181, 4, 216, 0.952);
+  color: white;
+}
+
+.btn-no-custom {
+  background: none;
+  border: none;
+  color: white;
+  outline: none;
+}
+
+.btn-no-custom:focus {
+  outline: none;
+}
+
+.card-width {
+  width: 75%;
+}
+
+.btn-like {
+  border: none;
+  background: none;
+  font-size: 20px;
+  color: rgba(181, 4, 216, 0.952);
+}
+
+.btn-like:focus {
+  color: green;
+}
+
+.btn-like:visited {
+  color: green;
+}
+
+
+

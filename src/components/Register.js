@@ -1,3 +1,4 @@
+import "../index.css";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
@@ -33,42 +34,53 @@ const Register = () => {
     }
   };
   return (
-    <div>
-      <h1> Resgiter Page</h1>
-      {error && <h2>{error}</h2>}
-      <form onSubmit={handleSubmit}>
-        <p>Username</p>
-        <input
-          type="text"
-          required
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <p> Email</p>
-        <input
-          type="email"
-          value={email}
-          required
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <p>Password</p>
-        <input
-          type="password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <p>Confirm Password</p>
-        <input
-          type="password"
-          required
-          value={confPass}
-          onChange={(e) => setConfPass(e.target.value)}
-        />
-        <br />
-        <button>Sign Up</button>
-      </form>
-      <button onClick={() => navigate("/login")}>take me to login</button>
+    <div className="top-mar">
+      {error && (
+        <div class="container alert alert-danger" role="alert">
+          {error}
+        </div>
+      )}
+      <div className="form-group container md-1 ">
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            required
+            className="form-control border-custom"
+            value={username}
+            placeholder="Username"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            type="email"
+            value={email}
+            placeholder="Email"
+            className="form-control border-custom"
+            required
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            required
+            placeholder="Password"
+            className="form-control border-custom"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <input
+            type="password"
+            required
+            placeholder="Confirm Password"
+            className="form-control border-custom"
+            value={confPass}
+            onChange={(e) => setConfPass(e.target.value)}
+          />
+          <br />
+          <button className="btn button-clr justify-content-center">
+            Sign Up
+          </button>
+        </form>
+      </div>
+      {/* <button onClick={() => navigate("/login")}>take me to login</button> */}
     </div>
   );
 };
