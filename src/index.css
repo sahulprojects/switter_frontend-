@@ -55,16 +55,15 @@ code {
   border: none;
   background: none;
   font-size: 20px;
-  color: rgba(181, 4, 216, 0.952);
+  color: rgba(81, 79, 82, 0.952);
+}
+.btn-swit{
+  background-color: rgba(181, 4, 216, 0.952);
+  color: white;
+  border-radius: 10px;
+  margin-top: 10px;
 }
 
-.btn-like:focus {
-  color: green;
-}
-
-.btn-like:visited {
-  color: green;
-}
 
 
 

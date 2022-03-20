@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
 import "../index.css";
 
 const MyPost = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
   useEffect(async () => {
     try {
       const res = await axios.get("http://127.0.0.1:5000/post/myPosts", {
@@ -42,41 +44,54 @@ const MyPost = () => {
           {error}
         </div>
       )}
-     
+      <div className="container">
+        <button
+          className="btn btn-swit"
+          data-toggle="modal"
+          data-target="#createModal"
+          onClick={() => navigate("/createPost")}
+        >
+          create a swit  <i class="fa fa-twitter" aria-hidden="true"></i>
+        </button>
+      </div>
+
       {data.map((data) => {
         return (
           <div key={data._id} className="top-mar">
             <div className="card container border-card card-width">
               <div className="card-body">
                 <h5 className="card-title">{data.title}</h5>
-
-                <div class="d-flex flex-row">
-                  {/* <h6 className="card-subtitle mb-2 text-muted p-2">Card subtitle</h6> */}
-                  <h6 className="card-subtitle mb-2 text-muted p-2">
-                    {data.date_posted}
-                  </h6>
-                </div>
                 <p className="card-text">{data.content}</p>
-                <button className="btn btn-like">
-                  <i className="fa fa-thumbs-up"></i>
-                </button>
+                <small
+                  className="card-subtitle mb-2 text-muted p-2"
+                  style={{ fontSize: "13px" }}
+                >
+                  {data.date_posted}
+                </small>
                 <button
-                  className="btn btn-danger float-right m-1"
+                  className="btn btn-like float-right m-1"
                   onClick={() => {
                     handleDelete(data._id);
                     window.location.reload();
                   }}
                 >
-                  Delete
+                  <i
+                    className="fa fa-trash text-danger"
+                    style={{ fontSize: "23px" }}
+                    u
+                  ></i>
                 </button>
                 <Link
                   to="/updatemypost"
                   state={{ id: data._id }}
                   data-toggle="modal"
                   data-target="#updateModal"
-                  className="btn btn-warning float-right m-1"
+                  className="btn btn-like float-right m-1"
                 >
-                  Update
+                  <i
+                    className="fa fa-edit text-success"
+                    style={{ fontSize: "22px" }}
+                  ></i>
                 </Link>
               </div>
             </div>
