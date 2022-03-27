@@ -40,12 +40,12 @@ const Register = () => {
           {error}
         </div>
       )}
-      <div className="form-group container md-1 ">
+      <div className="form-group container md-1 " >
         <form onSubmit={handleSubmit}>
           <input
             type="text"
             required
-            className="form-control border-custom"
+            className="form-control border-custom shadow-none"
             value={username}
             placeholder="Username"
             onChange={(e) => setUsername(e.target.value)}
@@ -54,7 +54,7 @@ const Register = () => {
             type="email"
             value={email}
             placeholder="Email"
-            className="form-control border-custom"
+            className="form-control border-custom shadow-none"
             required
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -62,7 +62,7 @@ const Register = () => {
             type="password"
             required
             placeholder="Password"
-            className="form-control border-custom"
+            className="form-control border-custom shadow-none"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -70,7 +70,7 @@ const Register = () => {
             type="password"
             required
             placeholder="Confirm Password"
-            className="form-control border-custom"
+            className="form-control border-custom shadow-none"
             value={confPass}
             onChange={(e) => setConfPass(e.target.value)}
           />

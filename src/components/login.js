@@ -36,7 +36,7 @@ const Login = () => {
         <input
           type="text"
           required
-          className="form-control border-custom"
+          className="form-control border-custom shadow-none"
           value={username}
           placeholder="username"
           onChange={(e) => setUsername(e.target.value)}
@@ -46,7 +46,7 @@ const Login = () => {
           type="password"
           required
           placeholder="password"
-          className="form-control border-custom"
+          className="form-control shadow-none border-custom"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />

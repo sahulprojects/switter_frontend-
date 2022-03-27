@@ -3,10 +3,9 @@ import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const navigate = useNavigate();
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-dark navbar-custom">
+      <nav className="navbar navbar-expand-lg  navbar-dark navbar-custom">
         <a className="navbar-brand" href="#">
           Switter
         </a>

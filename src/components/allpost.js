@@ -1,12 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "../index.css";
+import { handleLike, handleDisLike, handleComment } from "../utils/utils";
 
 const AllPost = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState("");
   const [likedUsers, setLikedUsers] = useState([]);
-
+  const [dislikedUsers, setDisLikedUsers] = useState([]);
+  const [comment, setComment] = useState("");
+  const [totalComment, setTotalComment] = useState([]);
   useEffect(async () => {
     try {
       const res = await axios.get("http://127.0.0.1:5000/post/allPosts", {
@@ -21,37 +24,7 @@ const AllPost = () => {
       setError(err.response.data);
       console.log(err);
     }
-  }, [likedUsers]);
-
-  const handleLike = async (id) => {
-    axios
-      .get(`http://127.0.0.1:5000/post/likePost/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
-        },
-      })
-      .then((res) => {
-        // window.location.reload(false)
-        console.log(res, "likin data");
-        setLikedUsers(res.data.liked_users);
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const handleDisLike = async (id) => {
-    axios
-      .get(`http://127.0.0.1:5000/post/dislikePost/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
-        },
-      })
-      .then((res) => {
-        // window.location.reload(false)
-        console.log(res, "likin data");
-        setLikedUsers(res.data.disliked_users);
-      })
-      .catch((err) => console.log(err));
-  };
+  }, [likedUsers, dislikedUsers, totalComment]);
 
   return (
     <div>
@@ -75,7 +48,12 @@ const AllPost = () => {
                 <p className="card-text">{data.content}</p>
                 <button
                   onClick={() => {
-                    handleLike(data._id);
+                    handleLike(data._id)
+                      .then((res) => {
+                        console.log("likers", res.data.liked_users);
+                        setLikedUsers(res.data.liked_users);
+                      })
+                      .catch(() => {});
                   }}
                   className="btn btn-like"
                 >
@@ -86,7 +64,12 @@ const AllPost = () => {
                 </p>
                 <button
                   onClick={() => {
-                    handleDisLike(data._id);
+                    handleDisLike(data._id)
+                      .then((res) => {
+                        console.log("dislikers", res.data.disliked_users);
+                        setDisLikedUsers(res.data.disliked_users);
+                      })
+                      .catch(() => {});
                   }}
                   className="btn btn-like"
                 >
@@ -95,8 +78,78 @@ const AllPost = () => {
                 <p className="card-subtitle d-inline text-muted">
                   {data.disliked_users.length}
                 </p>
+                <button
+                  className="btn btn-like shadow-none"
+                  data-toggle="collapse"
+                  data-target={"#" + data._id}
+                  aria-expanded="true"
+                  aria-controls="comment"
+                >
+                  <i class="fa fa-comment"></i>
+                  <p className="card-subtitle d-inline small text-muted">
+                    {" "}
+                    {data.comments.length} comments
+                  </p>
+                </button>
+                {/* here it is dynamic id */}
+                <div class="collapse multi-collapse" id={data._id}>
+                  <div class="card card-body">
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        handleComment(data._id, comment).then((res) => {
+                          console.log(res);
+                          setTotalComment(res.data.comments);
+                        });
+                        setComment("");
+                      }}
+                      className="comment-form"
+                    >
+                      <textarea
+                        class="form-control comment-area shadow-none"
+                        rows="3"
+                        placeholder="share your thoughts.."
+                        required
+                        value={comment}
+                        onChange={(e) => {
+                          setComment(e.target.value);
+                        }}
+                      ></textarea>
+                      <button class="float-right btn btn-like" type="submit">
+                        <i
+                          class="fa fa-send-o"
+                          style={{ fontSize: "20px", color: "blue" }}
+                        ></i>
+                      </button>
+                    </form>
+                    {data.comments.map((com) => {
+                      return (
+                        <div className="mt-3">
+                          <h6 className="card-subtitle mb-2 text-muted p-2">
+                            @{com.username}
+                          </h6>
+                          <h6 className="card-subtitle ml-4">
+                            {com.comment}
+                          </h6>
+                        </div>
+                      );
+                    })}
+                    <span
+                      className="btn text-dark float-right"
+                      data-toggle="collapse"
+                      data-target={"#" + data._id}
+                      aria-expanded="false"
+                      aria-controls="comment"
+                    >
+                      <i class="fa fa-times" aria-hidden="true">
+                        {" "}
+                        close comments
+                      </i>
+                    </span>
+                  </div>
+                </div>
                 <small
-                  className="card-subtitle d-block mb-2 text-muted p-2"
+                  className="d-block mb-2 text-muted p-2"
                   style={{ fontSize: "13px" }}
                 >
                   {data.date_posted}

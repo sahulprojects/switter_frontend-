@@ -64,6 +64,14 @@ code {
   margin-top: 10px;
 }
 
+.comment-form{
+  border: 1px solid rgba(103, 97, 105, 0.952);
+}
+
+.comment-area{
+  border: none;
+  resize: none;
+}
 
 
 
