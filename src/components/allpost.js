@@ -12,17 +12,15 @@ const AllPost = () => {
   const [totalComment, setTotalComment] = useState([]);
   useEffect(async () => {
     try {
-      const res = await axios.get("http://127.0.0.1:5000/post/allPosts", {
+      const res = await axios.get("https://swittersahul.herokuapp.com/post/allPosts", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
         },
       });
       const data = res.data;
-      console.log(data);
       setData(data);
     } catch (err) {
       setError(err.response.data);
-      console.log(err);
     }
   }, [likedUsers, dislikedUsers, totalComment]);
 
@@ -50,7 +48,6 @@ const AllPost = () => {
                   onClick={() => {
                     handleLike(data._id)
                       .then((res) => {
-                        console.log("likers", res.data.liked_users);
                         setLikedUsers(res.data.liked_users);
                       })
                       .catch(() => {});
@@ -66,7 +63,6 @@ const AllPost = () => {
                   onClick={() => {
                     handleDisLike(data._id)
                       .then((res) => {
-                        console.log("dislikers", res.data.disliked_users);
                         setDisLikedUsers(res.data.disliked_users);
                       })
                       .catch(() => {});
@@ -98,7 +94,6 @@ const AllPost = () => {
                       onSubmit={(e) => {
                         e.preventDefault();
                         handleComment(data._id, comment).then((res) => {
-                          console.log(res);
                           setTotalComment(res.data.comments);
                         });
                         setComment("");
@@ -124,7 +119,7 @@ const AllPost = () => {
                     </form>
                     {data.comments.map((com) => {
                       return (
-                        <div className="mt-3">
+                        <div key={com._id} className="mt-3">
                           <h6 className="card-subtitle mb-2 text-muted p-2">
                             @{com.username}
                           </h6>

@@ -13,13 +13,19 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route exact path="/" element={<Register />} />
+          {localStorage.getItem("AccessToken") && (
+            <Route exact path="/" element={<AllPost />} />
+          )}
+
+          {!localStorage.getItem("AccessToken") && (
+            <Route exact path="/" element={<Login />} />
+          )}
+          <Route exact path="/register" element={<Register />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/createPost" element={<CreatePost />} />
           <Route exact path="/myposts" element={<MyPost />} />
           <Route exact path="/updatemypost" element={<UpdatePost />} />
           <Route exact path="/allposts" element={<AllPost />} />
-
         </Routes>
       </Router>
     </div>

@@ -12,7 +12,7 @@ const UpdatePost = () => {
     e.preventDefault();
     axios
       .put(
-        `http://127.0.0.1:5000/post/updateMyPost/${id}`,
+        `https://swittersahul.herokuapp.com/post/updateMyPost/${id}`,
         {
           content,
         },
@@ -23,11 +23,10 @@ const UpdatePost = () => {
         }
       )
       .then((res) => {
-        console.log(res);
         navigate("/myposts");
         window.location.reload();
       })
-      .catch((err) => console.log(err));
+      .catch();
   };
   return (
     <div className="top-mar">

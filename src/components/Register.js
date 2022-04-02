@@ -2,6 +2,7 @@ import "../index.css";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -18,18 +19,17 @@ const Register = () => {
       setError("Password must match with Confirm Password");
     else {
       axios
-        .post("http://127.0.0.1:5000", {
+        .post("https://swittersahul.herokuapp.com/", {
           username,
           email,
           password,
         })
         .then((res) => {
-          console.log(res);
           navigate("/login");
+          
         })
         .catch((err) => {
           setError(err.response.data);
-          console.log(err.response.data);
         });
     }
   };
@@ -79,8 +79,9 @@ const Register = () => {
             Sign Up
           </button>
         </form>
+        <Link  className="small" to="/login"> already have an account? Login</Link>
+
       </div>
-      {/* <button onClick={() => navigate("/login")}>take me to login</button> */}
     </div>
   );
 };

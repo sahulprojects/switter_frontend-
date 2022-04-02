@@ -15,31 +15,33 @@ const MyPost = () => {
   const navigate = useNavigate();
   useEffect(async () => {
     try {
-      const res = await axios.get("http://127.0.0.1:5000/post/myPosts", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
-        },
-      });
+      const res = await axios.get(
+        "https://swittersahul.herokuapp.com/post/myPosts",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
+          },
+        }
+      );
       const data = res.data;
-      console.log(data);
       setData(data);
     } catch (err) {
       setError(err.response.data);
-      console.log(err);
     }
   }, [likedUsers, dislikedUsers, totalComment]);
 
   const handleDelete = (id) => {
     axios
-      .delete(`http://127.0.0.1:5000/post/deleteMyPost/${id}`, {
+      .delete(`https://swittersahul.herokuapp.com/post/deleteMyPost/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
         },
       })
       .then((res) => {
-        console.log("deleted");
+        navigate("/myposts");
+        window.location.reload();
       })
-      .catch((er) => console.log(er));
+      .catch();
   };
 
   return (
@@ -71,7 +73,6 @@ const MyPost = () => {
                   onClick={() => {
                     handleLike(data._id)
                       .then((res) => {
-                        console.log("likers", res.data.liked_users);
                         setLikedUsers(res.data.liked_users);
                       })
                       .catch(() => {});
@@ -87,7 +88,6 @@ const MyPost = () => {
                   onClick={() => {
                     handleDisLike(data._id)
                       .then((res) => {
-                        console.log("dislikers", res.data.disliked_users);
                         setDisLikedUsers(res.data.disliked_users);
                       })
                       .catch(() => {});
@@ -119,7 +119,6 @@ const MyPost = () => {
                       onSubmit={(e) => {
                         e.preventDefault();
                         handleComment(data._id, comment).then((res) => {
-                          console.log(res);
                           setTotalComment(res.data.comments);
                         });
                         setComment("");
@@ -145,7 +144,7 @@ const MyPost = () => {
                     </form>
                     {data.comments.map((com) => {
                       return (
-                        <div className="mt-3">
+                        <div key={com._id} className="mt-3">
                           <h6 className="card-subtitle mb-2 text-muted p-2">
                             @{com.username}
                           </h6>
@@ -167,7 +166,7 @@ const MyPost = () => {
                     </span>
                   </div>
                 </div>
-                <br/>
+                <br />
                 <small
                   className="mb-2 text-muted p-2"
                   style={{ fontSize: "13px" }}
@@ -178,7 +177,6 @@ const MyPost = () => {
                   className="btn btn-like float-right m-1"
                   onClick={() => {
                     handleDelete(data._id);
-                    window.location.reload();
                   }}
                 >
                   <i

@@ -2,6 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../index.css";
+import { Link } from "react-router-dom";
+
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -10,18 +12,16 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://127.0.0.1:5000/login", {
+      .post("https://swittersahul.herokuapp.com/login", {
         username,
         password,
       })
       .then((res) => {
         const AccessToken = res.data.AccessToken;
-        console.log(AccessToken);
         localStorage.setItem("AccessToken", AccessToken);
-        navigate('/allposts')
+        navigate("/allposts");
       })
       .catch((err) => {
-        console.log(err.response.data);
         setError(err.response.data);
       });
   };
@@ -32,27 +32,34 @@ const Login = () => {
           {error}
         </div>
       )}
-      <form className="form-group container md-1" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          required
-          className="form-control border-custom shadow-none"
-          value={username}
-          placeholder="username"
-          onChange={(e) => setUsername(e.target.value)}
-        />
+      <div className="form-group container md-1 ">
+        <form  onSubmit={handleSubmit}>
+          <input
+            type="text"
+            required
+            className="form-control border-custom shadow-none"
+            value={username}
+            placeholder="username"
+            onChange={(e) => setUsername(e.target.value)}
+          />
 
-        <input
-          type="password"
-          required
-          placeholder="password"
-          className="form-control shadow-none border-custom"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <input
+            type="password"
+            required
+            placeholder="password"
+            className="form-control shadow-none border-custom"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-        <button className="btn button-clr justify-content-center">Login</button>
-      </form>
+          <button className="btn button-clr justify-content-center">
+            Login
+          </button>
+        </form>
+        <Link className=" d-inline small" to="/register">
+          Not have an account? Register
+        </Link>
+      </div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const handleLike = (id) => {
-  return axios.get(`http://127.0.0.1:5000/post/likePost/${id}`, {
+  return axios.get(`https://swittersahul.herokuapp.com/post/likePost/${id}`, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
     },
@@ -9,7 +9,7 @@ export const handleLike = (id) => {
 };
 
 export const handleDisLike = (id) => {
-  return axios.get(`http://127.0.0.1:5000/post/dislikePost/${id}`, {
+  return axios.get(`https://swittersahul.herokuapp.com/post/dislikePost/${id}`, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
     },
@@ -18,7 +18,7 @@ export const handleDisLike = (id) => {
 
 export const handleComment = (id, comment) => {
   return axios.put(
-    `http://127.0.0.1:5000/post/commentPost/${id}`,
+    `https://swittersahul.herokuapp.com/post/commentPost/${id}`,
     {
       comment,
     },

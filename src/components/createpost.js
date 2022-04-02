@@ -12,7 +12,7 @@ const CreatePost = () => {
     e.preventDefault();
     axios
       .post(
-        "http://127.0.0.1:5000/post/createPost",
+        "https://swittersahul.herokuapp.com/post/createPost",
         {
           title,
           content,
@@ -24,12 +24,10 @@ const CreatePost = () => {
         }
       )
       .then((res) => {
-        console.log(res);
         navigate("/myposts");
         window.location.reload();
       })
       .catch((err) => {
-        console.log(err);
         setError(err.response.data);
       });
   };
