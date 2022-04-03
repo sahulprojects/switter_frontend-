@@ -31,7 +31,7 @@ const AllPost = () => {
           {error}
         </div>
       )}
-
+      {data.length == 0 && <h3 className="load-msg">Loading...</h3>}
       {data.map((data) => {
         return (
           <div key={data._id} className="top-mar">

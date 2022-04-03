@@ -73,5 +73,11 @@ code {
   resize: none;
 }
 
+.load-msg{
+  font-size: 20px;
+  color:rgba(81, 79, 82, 0.952);
+  text-align: center;
+  margin-top: 200px;
+}
 
 

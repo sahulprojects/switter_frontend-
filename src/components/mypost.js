@@ -60,7 +60,15 @@ const MyPost = () => {
         >
           create a swit <i class="fa fa-twitter" aria-hidden="true"></i>
         </button>
+        <button className="float-right btn btn-danger m-2" onClick={() => {
+           localStorage.removeItem("AccessToken")
+           navigate("/");
+           window.reload.location()
+        }}>
+          Logout <i class="fa fa-sign-out" aria-hidden="true"></i>
+        </button>
       </div>
+      {data.length == 0 && <h3 className="load-msg">Loading...</h3>}
 
       {data.map((data) => {
         return (
