@@ -6,19 +6,29 @@ import { handleLike, handleDisLike, handleComment } from "../utils/utils";
 const AllPost = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState("");
+  const [isEmpty, setIsEmpty] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [likedUsers, setLikedUsers] = useState([]);
   const [dislikedUsers, setDisLikedUsers] = useState([]);
   const [comment, setComment] = useState("");
   const [totalComment, setTotalComment] = useState([]);
   useEffect(async () => {
     try {
-      const res = await axios.get("https://swittersahul.herokuapp.com/post/allPosts", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
-        },
-      });
+      const res = await axios.get(
+        "https://swittersahul.herokuapp.com/post/allPosts",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
+          },
+        }
+      );
       const data = res.data;
       setData(data);
+      setData(data);
+      setIsLoading(false);
+      if (data.length == 0) {
+        setIsEmpty(true);
+      }
     } catch (err) {
       setError(err.response.data);
     }
@@ -31,7 +41,8 @@ const AllPost = () => {
           {error}
         </div>
       )}
-      {data.length == 0 && <h3 className="load-msg">Loading...</h3>}
+      {isLoading && <h3 className="load-msg">Loading...</h3>}
+      {isEmpty && <h3 className="load-msg">Nothing to see here</h3>}
       {data.map((data) => {
         return (
           <div key={data._id} className="top-mar">
@@ -123,9 +134,7 @@ const AllPost = () => {
                           <h6 className="card-subtitle mb-2 text-muted p-2">
                             @{com.username}
                           </h6>
-                          <h6 className="card-subtitle ml-4">
-                            {com.comment}
-                          </h6>
+                          <h6 className="card-subtitle ml-4">{com.comment}</h6>
                         </div>
                       );
                     })}

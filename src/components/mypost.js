@@ -8,6 +8,8 @@ import { handleLike, handleDisLike, handleComment } from "../utils/utils";
 const MyPost = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState("");
+  const [isEmpty, setIsEmpty] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [likedUsers, setLikedUsers] = useState([]);
   const [dislikedUsers, setDisLikedUsers] = useState([]);
   const [comment, setComment] = useState("");
@@ -24,7 +26,12 @@ const MyPost = () => {
         }
       );
       const data = res.data;
+      console.log(data);
       setData(data);
+      setIsLoading(false);
+      if(data.length == 0){
+        setIsEmpty(true)
+      }
     } catch (err) {
       setError(err.response.data);
     }
@@ -60,15 +67,20 @@ const MyPost = () => {
         >
           create a swit <i class="fa fa-twitter" aria-hidden="true"></i>
         </button>
-        <button className="float-right btn btn-danger m-2" onClick={() => {
-           localStorage.removeItem("AccessToken")
-           navigate("/");
-           window.reload.location()
-        }}>
+        <button
+          className="float-right btn btn-danger m-2"
+          onClick={() => {
+            localStorage.removeItem("AccessToken");
+            navigate("/");
+            window.reload.location();
+          }}
+        >
           Logout <i class="fa fa-sign-out" aria-hidden="true"></i>
         </button>
       </div>
-      {data.length == 0 && <h3 className="load-msg">Loading...</h3>}
+      {}
+      {isLoading && <h3 className="load-msg">Loading...</h3>}
+      {isEmpty && <h3 className="load-msg">Nothing to see here</h3>}
 
       {data.map((data) => {
         return (
